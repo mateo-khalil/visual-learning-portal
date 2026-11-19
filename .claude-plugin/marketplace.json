@@ -1,0 +1,14 @@
+{
+  "name": "visual-learning-portal",
+  "description": "Skills for building visual-first educational websites and study portals.",
+  "owner": {
+    "name": "Mateo Khalil"
+  },
+  "plugins": [
+    {
+      "name": "visual-learning-portal",
+      "source": "./",
+      "description": "Build visual-first educational portals with diagrams, animated simulators, worked guides and solved exams."
+    }
+  ]
+}

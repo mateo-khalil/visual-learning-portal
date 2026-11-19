@@ -1,0 +1,12 @@
+/node_modules
+/.next
+/out
+/build
+next-env.d.ts
+*.tsbuildinfo
+.DS_Store
+.vercel
+.env*
+
+# Source material (PDFs, slides, past exams): heavy and often copyrighted. Keep it local.
+/materials/
