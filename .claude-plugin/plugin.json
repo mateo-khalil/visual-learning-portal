@@ -1,7 +1,7 @@
 {
   "name": "visual-learning-portal",
-  "description": "Build visual-first educational portals: drawn diagrams, animated step-by-step simulators on pure engines, worked guides, solved past exams and quizzes, as a static Next.js site.",
-  "version": "1.0.0",
+  "description": "Build visual-first educational portals as static Next.js sites: classic (drawn diagrams, simulators on pure engines, worked guides, solved exams, quizzes) or stage (step-by-step lessons on animated isometric 3D scenes).",
+  "version": "1.1.0",
   "author": { "name": "Mateo Khalil" },
   "homepage": "https://github.com/mateo-khalil/visual-learning-portal",
   "repository": "https://github.com/mateo-khalil/visual-learning-portal",

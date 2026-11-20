@@ -1,0 +1,241 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ------------------------------------------------------------------------------------------
+ * Tokens. Each tone has four values: c1 the top (the lightest face), c2 the left face,
+ * c3 the right face (the darkest) and ci the strong color (text, lit wires, halos).
+ * ------------------------------------------------------------------------------------------ */
+:root {
+  --bg: #f2f0eb;
+  --panel: #fbfaf7;
+  --panel-2: #f6f4ef;
+  --fg: #1d1f24;
+  --muted: #6d7079;
+  --line: #d8d3c9;
+  --outline: #1d1f24;
+  --on-face: #1d1f24;
+  --grid: rgba(29, 31, 36, 0.09);
+  --wire: #2b2e35;
+  --wire-off: #b9b4aa;
+  --shadow: 3px 3px 0 #1d1f24;
+  --accent: #2a7d5a;
+  --accent-soft: #d6efe2;
+
+  --paper-1: #fdfcf9; --paper-2: #ebe7de; --paper-3: #d8d2c5; --paper-i: #6d7079;
+  --amber-1: #fde8b4; --amber-2: #f5d07c; --amber-3: #e3b152; --amber-i: #a8701a;
+  --sky-1: #d3e5fb; --sky-2: #abcaf2; --sky-3: #87b0e4; --sky-i: #2b67ad;
+  --mint-1: #d1efdf; --mint-2: #a8dcc1; --mint-3: #83c5a2; --mint-i: #1f7d54;
+  --lilac-1: #e5dcfb; --lilac-2: #cdbef3; --lilac-3: #b3a0e3; --lilac-i: #6649bd;
+  --rose-1: #fbd8df; --rose-2: #f2b4c1; --rose-3: #e38fa1; --rose-i: #b83255;
+  --coral-1: #fde0cf; --coral-2: #f6be9f; --coral-3: #e79c77; --coral-i: #b84e22;
+  --lime-1: #e8f4c3; --lime-2: #d0e595; --lime-3: #b5d16a; --lime-i: #5f821a;
+  --slate-1: #dde1e7; --slate-2: #bcc3ce; --slate-3: #9aa3b2; --slate-i: #444e5f;
+  --ink-1: #4d525d; --ink-2: #353941; --ink-3: #26292f; --ink-i: #1d1f24;
+  --red-1: #ffb9b2; --red-2: #ff7d72; --red-3: #e04a3f; --red-i: #d63a2f;
+  --green-1: #bdf2cb; --green-2: #80dc99; --green-3: #47bf6c; --green-i: #1d8f44;
+}
+
+.dark {
+  --bg: #121417;
+  --panel: #191c21;
+  --panel-2: #1e2127;
+  --fg: #ebe8e1;
+  --muted: #9a9ea8;
+  --line: #2e323a;
+  --outline: #08090b;
+  --on-face: #f3f1ec;
+  --grid: rgba(235, 232, 225, 0.07);
+  --wire: #d9d6cf;
+  --wire-off: #4a4e57;
+  --shadow: 3px 3px 0 #000;
+  --accent: #5fd3a0;
+  --accent-soft: #1d3a2e;
+
+  --paper-1: #41444b; --paper-2: #34373d; --paper-3: #2a2c31; --paper-i: #aeb2bb;
+  --amber-1: #8f6f2e; --amber-2: #765b23; --amber-3: #604a1b; --amber-i: #f2c46b;
+  --sky-1: #406390; --sky-2: #33517a; --sky-3: #294264; --sky-i: #93bff3;
+  --mint-1: #317257; --mint-2: #285f48; --mint-3: #1f4c3a; --mint-i: #82dcb0;
+  --lilac-1: #5e4d93; --lilac-2: #4e407c; --lilac-3: #403467; --lilac-i: #c6b6f6;
+  --rose-1: #8d4053; --rose-2: #763545; --rose-3: #602b38; --rose-i: #f59db2;
+  --coral-1: #8d4d33; --coral-2: #763f29; --coral-3: #603421; --coral-i: #f6ab86;
+  --lime-1: #607526; --lime-2: #4f611f; --lime-3: #3f4e18; --lime-i: #cfe78e;
+  --slate-1: #4d5463; --slate-2: #404654; --slate-3: #343945; --slate-i: #bac3d3;
+  --ink-1: #2a2d33; --ink-2: #202227; --ink-3: #17191c; --ink-i: #ebe8e1;
+  --red-1: #ff7468; --red-2: #e9493e; --red-3: #b9362d; --red-i: #ff8d83;
+  --green-1: #56d680; --green-2: #39b363; --green-3: #27884b; --green-i: #7fe6a0;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-panel: var(--panel);
+  --color-panel-2: var(--panel-2);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --font-sans: var(--font-plex-sans), ui-sans-serif, system-ui, "Segoe UI", sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, "Cascadia Mono", Consolas, monospace;
+}
+
+html,
+body {
+  background: var(--bg);
+  color: var(--fg);
+}
+
+body {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Tones: any element with .tone-x exposes --c1 … --ci to its children */
+.tone-paper { --c1: var(--paper-1); --c2: var(--paper-2); --c3: var(--paper-3); --ci: var(--paper-i); }
+.tone-amber { --c1: var(--amber-1); --c2: var(--amber-2); --c3: var(--amber-3); --ci: var(--amber-i); }
+.tone-sky { --c1: var(--sky-1); --c2: var(--sky-2); --c3: var(--sky-3); --ci: var(--sky-i); }
+.tone-mint { --c1: var(--mint-1); --c2: var(--mint-2); --c3: var(--mint-3); --ci: var(--mint-i); }
+.tone-lilac { --c1: var(--lilac-1); --c2: var(--lilac-2); --c3: var(--lilac-3); --ci: var(--lilac-i); }
+.tone-rose { --c1: var(--rose-1); --c2: var(--rose-2); --c3: var(--rose-3); --ci: var(--rose-i); }
+.tone-coral { --c1: var(--coral-1); --c2: var(--coral-2); --c3: var(--coral-3); --ci: var(--coral-i); }
+.tone-lime { --c1: var(--lime-1); --c2: var(--lime-2); --c3: var(--lime-3); --ci: var(--lime-i); }
+.tone-slate { --c1: var(--slate-1); --c2: var(--slate-2); --c3: var(--slate-3); --ci: var(--slate-i); }
+.tone-ink { --c1: var(--ink-1); --c2: var(--ink-2); --c3: var(--ink-3); --ci: var(--ink-i); }
+.tone-red { --c1: var(--red-1); --c2: var(--red-2); --c3: var(--red-3); --ci: var(--red-i); }
+.tone-green { --c1: var(--green-1); --c2: var(--green-2); --c3: var(--green-3); --ci: var(--green-i); }
+
+/* ------------------------------------------------------------------------------------------
+ * Stage
+ * ------------------------------------------------------------------------------------------ */
+.stage-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  user-select: none;
+  font-family: var(--font-mono);
+}
+.stage-svg .f1,
+.stage-svg .f2,
+.stage-svg .f3,
+.stage-svg .fi {
+  stroke: var(--outline);
+  stroke-width: 1.4;
+  stroke-linejoin: round;
+  transition: fill 0.35s ease;
+}
+.stage-svg .f1 { fill: var(--c1); }
+.stage-svg .f2 { fill: var(--c2); }
+.stage-svg .f3 { fill: var(--c3); }
+.stage-svg .fi { fill: var(--ci); }
+.stage-svg .nostroke { stroke: none; }
+.stage-svg .thin { stroke-width: 0.9; }
+.stage-svg .txt {
+  fill: var(--on-face);
+  font-weight: 600;
+}
+.stage-svg .txt-ci { fill: var(--ci); font-weight: 700; }
+.stage-svg .txt-muted { fill: var(--muted); }
+.stage-svg .halo {
+  fill: none;
+  stroke: var(--ci);
+  stroke-width: 7;
+  stroke-opacity: 0.35;
+  stroke-linejoin: round;
+}
+.stage-svg .dim { opacity: 0.32; }
+.dark .stage-svg .dim { opacity: 0.45; }
+.stage-svg .wire {
+  fill: none;
+  stroke: var(--wire);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: stroke 0.3s ease;
+}
+.stage-svg .wire.on { stroke: var(--ci); }
+.stage-svg .wire.off { stroke: var(--wire-off); }
+.stage-svg .wire-glow {
+  fill: none;
+  stroke: var(--ci);
+  stroke-opacity: 0.22;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.stage-svg .head { fill: var(--wire); transition: fill 0.3s ease; }
+.stage-svg .head.on { fill: var(--ci); }
+.stage-svg .head.off { fill: var(--wire-off); }
+.stage-svg .pill rect {
+  fill: var(--panel);
+  stroke: var(--outline);
+  stroke-width: 1.6;
+}
+.stage-svg .pill.toned rect { fill: var(--c1); }
+.stage-svg .pill text {
+  fill: var(--fg);
+  font-size: 12px;
+  font-weight: 600;
+}
+.stage-svg .packet { fill: var(--ci); stroke: var(--outline); stroke-width: 1.4; }
+.stage-svg .lit-glow { fill: var(--ci); opacity: 0.28; }
+
+@keyframes blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0.12; }
+}
+.blink { animation: blink 1s steps(1) infinite; }
+.paused .blink { animation-play-state: paused; }
+
+@media (prefers-reduced-motion: reduce) {
+  .blink { animation: none; }
+}
+
+/* Rich text */
+/* negation bar drawn inside the letter's box (text-decoration: overline gets clipped above the first line) */
+.ovl { position: relative; display: inline-block; }
+.ovl::after { content: ""; position: absolute; left: 0.04em; right: 0.04em; top: 0.12em; border-top: 0.085em solid currentColor; }
+.rich code {
+  font-family: var(--font-mono);
+  font-size: 0.86em;
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  padding: 0.05em 0.35em;
+}
+.rich strong { font-weight: 650; }
+
+/* Buttons with a hard shadow */
+.btn {
+  border: 1.6px solid var(--outline);
+  border-radius: 10px;
+  background: var(--panel);
+  box-shadow: var(--shadow);
+  transition: transform 0.08s ease, box-shadow 0.08s ease, background 0.2s ease;
+}
+.dark .btn { border-color: #3a3f48; }
+.btn:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--outline); }
+.btn:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--outline); }
+.btn:disabled { opacity: 0.45; pointer-events: none; }
+.btn-primary { background: var(--accent-soft); }
+
+.card {
+  background: var(--panel);
+  border: 1.5px solid var(--line);
+  border-radius: 16px;
+}
+
+.scrollbar-thin { scrollbar-width: thin; }
+
+/* Text on dark bodies (chips, displays): always light */
+.stage-svg .chip-name,
+.stage-svg .chip-labels .txt { fill: #f1eee8; }
+.stage-svg .chip-labels .txt-ci { fill: var(--amber-1); font-weight: 700; }
+
+/* Panel entrance animations */
+@keyframes step-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.step-in { animation: step-in 0.35s ease both; }
+@keyframes card-pop { from { opacity: 0; transform: translateY(8px) scale(0.98); } to { opacity: 1; transform: none; } }
+.card-pop { animation: card-pop 0.4s 0.35s ease both; }
+@keyframes metric-flash { 0% { background: var(--mint-1); } 100% { background: transparent; } }
+.metric-flash { animation: metric-flash 1.6s ease both; }
+@media (prefers-reduced-motion: reduce) {
+  .step-in, .card-pop, .metric-flash { animation: none; }
+}

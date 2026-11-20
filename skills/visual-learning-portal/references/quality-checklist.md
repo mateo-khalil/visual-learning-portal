@@ -28,6 +28,13 @@
 - [ ] "✓ Studied" toggles and the quiz's best score persist in `localStorage` under the portal's own `storagePrefix` (portals on the same domain must not collide).
 - [ ] Renamed pages have redirects in `next.config.ts`.
 
+## Stage lessons (stage style only)
+- [ ] Every step changes one thing, and the scene of every step is built by a world function from the engine state (no hand-copied scenes).
+- [ ] Entity ids are stable across steps (things move instead of blinking out and in).
+- [ ] `node scripts/shot-steps.mjs` captured **every** step, plus some `--dark`, `--mobile` and `--mid=400`, and the PNGs were read: no pill over pill, no text under a piece, no wire ending in the void, no camera cutting the scene, no card overflowing.
+- [ ] The kit gallery (`/pieces`) still renders every type in both themes after kit changes.
+- [ ] Every lesson ends with an exam/defence step: what to say and what to draw.
+
 ## Project hygiene
 - [ ] `PORTAL.md` is filled in (scope, sources, canonical results, decisions, ownership) and copied or linked as `CLAUDE.md` / `AGENTS.md`.
 - [ ] `materials/` (PDFs, extracted text) is git-ignored and excluded from deploys.

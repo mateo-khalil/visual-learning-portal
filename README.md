@@ -1,10 +1,18 @@
 # Visual Learning Portal
 
-**An agent skill for building visual-first educational websites.** Hand an AI coding agent your course material (slides, textbook chapters, past exams) and it builds a static study portal. Every idea in it is *drawn before it is written*: rendered diagrams, animated step-by-step simulators, worked "by hand" guides, solved past exams, a quiz and progress tracking.
+**An agent skill for building visual-first educational websites.** Hand an AI coding agent your course material (slides, textbook chapters, past exams, a delivered project) and it builds a static study portal. Every idea in it is *drawn before it is written*, in one of two styles:
+
+- **Classic**: rendered diagrams, animated step-by-step simulators, worked "by hand" guides, solved past exams, a quiz and progress tracking.
+- **Stage**: an interactive course of step-by-step lessons on **animated isometric 3D scenes**. Each step changes one thing: parts drop in, wires light up with their logic level, packets travel, the camera re-frames.
 
 <p align="center">
   <img src="docs/topic.png" width="49%" alt="A topic page: summary box, a drawn diagram and a numbered method">
   <img src="docs/simulator.png" width="49%" alt="A step-by-step simulator of the TCP handshake">
+</p>
+
+<p align="center">
+  <img src="docs/stage-lesson.png" width="49%" alt="A stage lesson: binary search on an isometric array, the camera following the candidate range">
+  <img src="docs/stage-flows.png" width="49%" alt="A stage lesson: the TCP handshake with packets on the wires and a retransmission timer">
 </p>
 
 The approach was refined on real exam-prep portals that students studied from. It's written down so that any agent can do the same for any subject: algorithms, operating systems, networking, databases, physics, finance and so on.
@@ -21,8 +29,10 @@ skills/visual-learning-portal/
 │   ├── engines-and-verification.md   pure engines, immutable steps, canonical checks
 │   ├── content-authoring.md page anatomy for topics, guides, question banks and exams
 │   ├── parallel-build.md    contract-first multi-agent build, one owner per file
-│   └── quality-checklist.md what "done" means
-└── template/                a working Next.js 16 starter with a complete example area
+│   ├── quality-checklist.md what "done" means
+│   └── stage-lessons.md     the stage style: animation model, scene language, pieces, pitfalls
+├── template/                classic: a working Next.js 16 starter with a complete example area
+└── template-stage/          stage: the isometric lesson framework with two example lessons
 ```
 
 ### The template
@@ -66,6 +76,15 @@ The skill walks the agent through it:
 5. content in the page anatomy;
 6. `verify` + build + lint + screenshots.
 
+### The stage template
+Lessons are data: each step declares its whole isometric scene (entities, wires, packets) and the stage animates the difference from the previous step. Plain React + SVG, no WebGL: crisp text and subscripts, light and dark themes from CSS variables, deterministic scenes that `npm run verify` can check without a browser.
+
+- **Pieces**: boxes, cylinders, tanks, tiles, registers of bits, memory rows, and an electronics kit (chips with named pins, logic gates, flip-flops, 7-segment displays, LEDs, potentiometers, switches, sensors).
+- **Wires** routed on the grid with arrowheads, labels, logic levels (lit or grey) and buses; **flows** carry labelled packets along them.
+- **Cards** beside the scene: code with highlighted lines, tables, calculations, timing diagrams, bit registers.
+- **Lesson screen**: metrics strip, "what changed", "you will learn", keyboard (← → R Space), deep links (`?step=N`), progress in `localStorage`, mobile layout.
+- **Screenshots per step** (`scripts/shot-steps.mjs`), including a frame halfway through a transition.
+
 ## Try the template directly
 
 ```bash
@@ -74,6 +93,8 @@ npm install
 npm run dev        # http://localhost:3000
 npm run verify     # → All OK
 ```
+
+The stage template works the same way: `cp -R skills/visual-learning-portal/template-stage my-course`.
 
 ## License
 
