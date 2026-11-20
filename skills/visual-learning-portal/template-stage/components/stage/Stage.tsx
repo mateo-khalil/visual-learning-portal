@@ -205,7 +205,6 @@ export default function Stage({ scene, stepKey, prev, replayKey = 0, paused = fa
               <LinkView key={l.id} link={l.link} pts={l.pts} op={l.op} draw={l.draw} />
             ))}
         </g>
-        <Packets flows={flowPaths.filter((f) => !scene.links?.[f.flow.link]?.over)} paused={paused} k={kh} />
         <g>
           {main.map((o) => (
             <EntityView key={o.id} f={o.f} op={o.op} k={k} />
@@ -218,10 +217,10 @@ export default function Stage({ scene, stepKey, prev, replayKey = 0, paused = fa
               <LinkView key={l.id} link={l.link} pts={l.pts} op={l.op} draw={l.draw} />
             ))}
         </g>
-        <Packets flows={flowPaths.filter((f) => !!scene.links?.[f.flow.link]?.over)} paused={paused} k={kh} />
+        <Packets flows={flowPaths} paused={paused} k={kh} />
         <g>
           {fr.ents.map((e) =>
-            e.f.pills?.length ? (
+            e.f.pills?.length && (!focus?.length || focus.includes(e.id)) ? (
               <g key={e.id} opacity={e.op} className={e.f.dim ? "dim" : ""}>
                 {pillLayout(e.f, e.f.pills, kh).map((pl, i) => (
                   <PillView key={i} pill={pl.pill} x={pl.ax} y={pl.ay} ox={pl.ox} oy={pl.oy} k={kh} />

@@ -13,7 +13,7 @@ export default function Cards({ cards }: { cards: Card[] }) {
       {cards.map((c) => (
         <div key={c.id} className="card-pop overflow-hidden rounded-xl border-[1.5px] border-[var(--outline)] bg-panel shadow-[3px_3px_0_var(--outline)] dark:border-[#3a3f48]">
           {c.title && (
-            <div className="border-b border-line bg-panel-2 px-3 py-1.5 font-mono text-[10.5px] font-semibold tracking-wider text-muted uppercase">
+            <div className="border-b border-line bg-panel-2 px-3 py-1.5 font-mono text-[10.5px] font-semibold tracking-wide text-muted">
               <Rich text={c.title} />
             </div>
           )}

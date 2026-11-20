@@ -181,6 +181,7 @@ export const bits: Kit = ({ f }) => {
 export const mem: Kit = ({ f }) => {
   const rows = (Array.isArray(f.rows) ? f.rows : []) as { addr: string; name?: string; value?: string; hl?: boolean; tone?: Tone }[];
   const rd = f.d / Math.max(1, rows.length);
+  const k = (f.fs as number) ?? 1;
   return (
     <g>
       {rows.map((r, i) => {
@@ -188,16 +189,16 @@ export const mem: Kit = ({ f }) => {
         return (
           <g key={i} className={`tone-${r.hl ? (r.tone ?? tone(f, "amber")) : (r.tone ?? "paper")}`}>
             <IsoBox b={b} />
-            <FaceText face="top" b={b} u={0.18} v={b.d / 2} size={0.3} anchor="start" className="txt-muted">
+            <FaceText face="top" b={b} u={0.18} v={b.d / 2} size={0.3 * k} anchor="start" className="txt-muted">
               {r.addr}
             </FaceText>
             {r.name && (
-              <FaceText face="top" b={b} u={1.25} v={b.d / 2} size={0.34} anchor="start" weight={700}>
+              <FaceText face="top" b={b} u={1.25 * k} v={b.d / 2} size={0.34 * k} anchor="start" weight={700}>
                 {r.name}
               </FaceText>
             )}
             {r.value && (
-              <FaceText face="top" b={b} u={b.w - 0.18} v={b.d / 2} size={0.36} anchor="end" weight={700}>
+              <FaceText face="top" b={b} u={b.w - 0.18} v={b.d / 2} size={0.36 * k} anchor="end" weight={700}>
                 {r.value}
               </FaceText>
             )}
